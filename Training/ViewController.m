@@ -81,14 +81,20 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
 #pragma mark - Configure cell data
 - (void)configureCell:(CanadaTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-//    }
-    UIImage *image = [UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"];
     CanadaItem *canadaItem = (CanadaItem *)self.response.itemList[indexPath.row];
     cell.titleLabel.text = canadaItem.title;
     [cell.photoImage sd_setImageWithURL:[NSURL URLWithString:canadaItem.imageUrl]
-                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]];
+                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]
+                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                 if (image) {
+                                     cell.photoImage.image = image;
+                                 } else {
+                                     cell.photoImage.image = nil;
+                                 }
+                                 
+                             }];
+//    [cell.photoImage sd_setImageWithURL:[NSURL URLWithString:canadaItem.imageUrl]
+//                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]];
     cell.descriptionLabel.text = canadaItem.description;
 }
 
