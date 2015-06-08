@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "CanadaItem.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #define SYSTEM_VERSION                              ([[UIDevice currentDevice] systemVersion])
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([SYSTEM_VERSION compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -86,7 +87,8 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
     UIImage *image = [UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"];
     CanadaItem *canadaItem = (CanadaItem *)self.response.itemList[indexPath.row];
     cell.titleLabel.text = canadaItem.title;
-    cell.photoImage.image = image;
+    [cell.photoImage sd_setImageWithURL:[NSURL URLWithString:canadaItem.imageUrl]
+                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]];
     cell.descriptionLabel.text = canadaItem.description;
 }
 
