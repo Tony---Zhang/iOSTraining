@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DetailViewController ()
 
@@ -20,6 +21,9 @@
     [super viewDidLoad];
     NSLog(@"Detail: %@, %@", item.title, item.description);
     [self.navigationItem setTitle:item.title];
+    [self.detailPhoto sd_setImageWithURL:[NSURL URLWithString:item.imageUrl]
+                       placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]];
+    self.detailContent.text = item.description;
     // Do any additional setup after loading the view.
 }
 

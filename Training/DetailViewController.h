@@ -11,6 +11,9 @@
 
 @interface DetailViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *detailPhoto;
+@property (weak, nonatomic) IBOutlet UILabel *detailContent;
+
 @property(retain, nonatomic) CanadaItem *item;
 
 @end
