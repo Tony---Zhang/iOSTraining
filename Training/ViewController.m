@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DetailViewController.h"
 #import "CanadaItem.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -15,6 +16,7 @@
 #define IS_IOS8_OR_ABOVE                            (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
 
 static NSString *CellIdentifier = @"CanadaTableViewCell";
+static NSString *SegueIdentifier = @"DetailViewController";
 
 @interface ViewController ()
 
@@ -34,6 +36,14 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier compare:SegueIdentifier] == NO) {
+        CanadaItem *item = self.response.itemList[((NSIndexPath*)sender).row];
+        DetailViewController *send = segue.destinationViewController;
+        [send setValue:item forKey:@"item"];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -56,6 +66,10 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
     height = height > defaultHeight ? height : defaultHeight;
     NSLog(@"height :%f index:%ld", height, indexPath.row);
     return height;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:SegueIdentifier sender:indexPath];
 }
 
 #pragma mark - UITableViewDelegate

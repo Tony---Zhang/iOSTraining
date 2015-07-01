@@ -77,11 +77,30 @@
                     <connections>
                         <outlet property="navigationBar" destination="tTg-gt-nvh" id="0aD-N2-NrE"/>
                         <outlet property="tableView" destination="haT-ak-T5u" id="jt4-IU-8as"/>
+                        <segue destination="ood-Fs-FwN" kind="show" identifier="DetailViewController" id="IhA-yB-cP8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pwy-y1-sY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2422" y="225"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="5I9-9a-epB">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="ood-Fs-FwN" customClass="DetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mCX-gK-5M6"/>
+                        <viewControllerLayoutGuide type="bottom" id="fNT-9Z-rpc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ceh-YA-yUS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gou-xH-JgY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3120" y="225"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dVR-9J-YCS">
