@@ -10,9 +10,8 @@
 #import "CanadaResponse.h"
 #import "CanadaTableViewCell.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationBar;
 
 @property (nonatomic, retain) CanadaResponse *response;

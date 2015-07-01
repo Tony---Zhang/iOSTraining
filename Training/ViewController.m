@@ -18,8 +18,6 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
 
 @interface ViewController ()
 
-@property (nonatomic, strong) CanadaTableViewCell *canadaTableViewCell;
-
 @end
 
 @implementation ViewController
@@ -50,31 +48,25 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CanadaTableViewCell *cell = (CanadaTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"Description: %@", cell.descriptionLabel.text);
+    CGFloat defaultHeight = cell.contentView.frame.size.height; 
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
+    height = height > defaultHeight ? height : defaultHeight;
+    NSLog(@"height :%f index:%ld", height, indexPath.row);
+    return height;
+}
+
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewAutomaticDimension;
 }
 
-// todo: make cell dynamic height
-//- (CGFloat)tableView:(UITableViewCell *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (IS_IOS8_OR_ABOVE) {
-//        return UITableViewAutomaticDimension;
-//    }
-//    [self configureCell:self.canadaTableViewCell forRowAtIndexPath:indexPath];
-//    
-//    [self.canadaTableViewCell updateConstraintsIfNeeded];
-//    [self.canadaTableViewCell layoutIfNeeded];
-//    
-//    return [self.canadaTableViewCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-//}
-
 #pragma mark - CanadaTableViewCell
 - (CanadaTableViewCell *)canadaTableViewCell {
-    if (!self.canadaTableViewCell) {
-        self.canadaTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CanadaTableViewCell class])];
-    }
-    return self.canadaTableViewCell;
+    return [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CanadaTableViewCell class])];
 }
 
 
@@ -84,18 +76,9 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
     CanadaItem *canadaItem = (CanadaItem *)self.response.itemList[indexPath.row];
     cell.titleLabel.text = canadaItem.title;
     [cell.photoImage sd_setImageWithURL:[NSURL URLWithString:canadaItem.imageUrl]
-                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]
-                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                 if (image) {
-                                     cell.photoImage.image = image;
-                                 } else {
-                                     cell.photoImage.image = nil;
-                                 }
-                                 
-                             }];
-//    [cell.photoImage sd_setImageWithURL:[NSURL URLWithString:canadaItem.imageUrl]
-//                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]];
+                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]];
     cell.descriptionLabel.text = canadaItem.description;
+    [cell.descriptionLabel sizeToFit];
 }
 
 #pragma mark - Data loader
