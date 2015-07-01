@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class CanadaItem;
 @interface CanadaTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoImage;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+
+- (void)configureWithCanadaItem:(CanadaItem *)item;
 
 @end

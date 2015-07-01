@@ -44,12 +44,12 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CanadaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    [self configureCell:cell forRowAtIndexPath:indexPath];
+    [cell configureWithCanadaItem:self.response.itemList[indexPath.row]];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CanadaTableViewCell *cell = (CanadaTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    CanadaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     NSLog(@"Description: %@", cell.descriptionLabel.text);
     CGFloat defaultHeight = cell.contentView.frame.size.height; 
     CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
@@ -67,18 +67,6 @@ static NSString *CellIdentifier = @"CanadaTableViewCell";
 #pragma mark - CanadaTableViewCell
 - (CanadaTableViewCell *)canadaTableViewCell {
     return [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CanadaTableViewCell class])];
-}
-
-
-#pragma mark - Configure cell data
-- (void)configureCell:(CanadaTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CanadaItem *canadaItem = (CanadaItem *)self.response.itemList[indexPath.row];
-    cell.titleLabel.text = canadaItem.title;
-    [cell.photoImage sd_setImageWithURL:[NSURL URLWithString:canadaItem.imageUrl]
-                      placeholderImage:[UIImage imageNamed:@"ic_abc_menu_favourite_saved.png"]];
-    cell.descriptionLabel.text = canadaItem.description;
-    [cell.descriptionLabel sizeToFit];
 }
 
 #pragma mark - Data loader
